@@ -18,7 +18,7 @@ public class WindowTienda extends JFrame {
 	private JTextField textFieldDineroJugador;
 	private JTextField textFieldCartonesJugador;
 	private JTextField textFieldFichasJugador;
-	private JTextField textFieldTickets7;
+	private JTextField textFieldTickets7Jugador;
 	private JTextField textFieldX;
 	private JTextField textField;
 	private JTextField textFieldDineroCasino;
@@ -47,9 +47,9 @@ public class WindowTienda extends JFrame {
 		
 		JLabel lblNewLabel_3 = new JLabel("Tus tickets para 7 y media");
 		
-		textFieldTickets7 = new JTextField();
-		textFieldTickets7.setText("0");
-		textFieldTickets7.setColumns(10);
+		textFieldTickets7Jugador = new JTextField();
+		textFieldTickets7Jugador.setText("0");
+		textFieldTickets7Jugador.setColumns(10);
 		
 		JLabel lblNewLabel_4 = new JLabel("Tus x");
 		
@@ -103,12 +103,96 @@ public class WindowTienda extends JFrame {
 		});
 		
 		JButton btnNewButton_2 = new JButton("Comprar ficha");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				int fichasJugador = Integer.valueOf( textFieldFichasJugador.getText() );
+				double dineroJugador = Double.valueOf( textFieldDineroJugador.getText() );
+				double dineroCasino = Double.valueOf( textFieldDineroCasino.getText() );
+				
+				if (dineroJugador >= Casino.precioFicha) {
+					fichasJugador++;
+					dineroJugador = dineroJugador - Casino.precioFicha;
+					dineroCasino = dineroCasino + Casino.precioFicha;
+					
+					textFieldFichasJugador.setText( String.valueOf(fichasJugador) );
+					textFieldDineroJugador.setText( String.valueOf(dineroJugador) );				
+					textFieldDineroCasino.setText( String.valueOf(dineroCasino) );				
+				} else {
+					JOptionPane.showMessageDialog(null, "No tienes suficiente dinero para comprar una ficha", "Error", JOptionPane.ERROR_MESSAGE);
+				}				
+				
+			}
+		});
 		
 		JButton btnNewButton_3 = new JButton("Devolver");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				int fichasJugador = Integer.valueOf( textFieldFichasJugador.getText() );
+				double dineroJugador = Double.valueOf( textFieldDineroJugador.getText() );
+				double dineroCasino = Double.valueOf( textFieldDineroCasino.getText() );
+				
+				if (fichasJugador > 0) {
+					fichasJugador--;
+					dineroJugador = dineroJugador + Casino.precioFicha;
+					dineroCasino = dineroCasino - Casino.precioFicha;
+					
+					textFieldFichasJugador.setText( String.valueOf(fichasJugador) );
+					textFieldDineroJugador.setText( String.valueOf(dineroJugador) );				
+					textFieldDineroCasino.setText( String.valueOf(dineroCasino) );				
+				} else {
+					JOptionPane.showMessageDialog(null, "No tienes fichas por devolver", "Error", JOptionPane.ERROR_MESSAGE);
+				}				
+				
+			}
+		});
 		
 		JButton btnNewButton_4 = new JButton("Devolver");
+		btnNewButton_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				int ticketsJugador = Integer.valueOf( textFieldTickets7Jugador.getText() );
+				double dineroJugador = Double.valueOf( textFieldDineroJugador.getText() );
+				double dineroCasino = Double.valueOf( textFieldDineroCasino.getText() );
+				
+				if (ticketsJugador > 0) {
+					ticketsJugador--;
+					dineroJugador = dineroJugador + Casino.precioTicket7;
+					dineroCasino = dineroCasino - Casino.precioTicket7;
+					
+					textFieldFichasJugador.setText( String.valueOf(ticketsJugador) );
+					textFieldDineroJugador.setText( String.valueOf(dineroJugador) );				
+					textFieldDineroCasino.setText( String.valueOf(dineroCasino) );				
+				} else {
+					JOptionPane.showMessageDialog(null, "No tienes tickets de las 7 y media por devolver", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+				
+			}
+		});
 		
 		JButton btnNewButton_5 = new JButton("Comprar ticket");
+		btnNewButton_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				int ticketsJugador = Integer.valueOf( textFieldTickets7Jugador.getText() );
+				double dineroJugador = Double.valueOf( textFieldDineroJugador.getText() );
+				double dineroCasino = Double.valueOf( textFieldDineroCasino.getText() );
+				
+				if (dineroJugador >= Casino.precioTicket7) {
+					ticketsJugador++;
+					dineroJugador = dineroJugador - Casino.precioTicket7;
+					dineroCasino = dineroCasino + Casino.precioTicket7;
+					
+					textFieldFichasJugador.setText( String.valueOf(ticketsJugador) );
+					textFieldDineroJugador.setText( String.valueOf(dineroJugador) );				
+					textFieldDineroCasino.setText( String.valueOf(dineroCasino) );				
+				} else {
+					JOptionPane.showMessageDialog(null, "No tienes suficiente dinero para comprar tickets para jugar las 7 y media", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+				
+			}
+		});
 		
 		JButton btnNewButton_6 = new JButton("Comprar x");
 		
@@ -151,7 +235,7 @@ public class WindowTienda extends JFrame {
 										.addComponent(btnNewButton_5, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 										.addGap(4))
 									.addGroup(groupLayout.createSequentialGroup()
-										.addComponent(textFieldTickets7)
+										.addComponent(textFieldTickets7Jugador)
 										.addGap(4))
 									.addGroup(groupLayout.createSequentialGroup()
 										.addComponent(lblNewLabel_3)
@@ -195,7 +279,7 @@ public class WindowTienda extends JFrame {
 						.addComponent(textFieldFichasJugador, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(textFieldX, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(textFieldCartonesJugador, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textFieldTickets7, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(textFieldTickets7Jugador, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnNewButton)
