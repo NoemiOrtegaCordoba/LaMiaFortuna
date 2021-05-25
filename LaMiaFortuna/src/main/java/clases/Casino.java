@@ -15,6 +15,8 @@ public class Casino {
 
     private double dinero;
     private ArrayList<CosaComprable> stock;
+    
+    public static final double precioCarton = 1; // en euros  
 
     public Casino(double dinero, ArrayList<CosaComprable> cosasComprables) {
         this.dinero = dinero;

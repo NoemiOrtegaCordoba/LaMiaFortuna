@@ -11,6 +11,8 @@ import clases.CosaComprable;
 import clases.Ficha;
 import clases.Jugador;
 import clases.Partida;
+import windows.WindowHallCasino;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -24,6 +26,10 @@ public class NewMain {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+
+    	WindowHallCasino windowPortada = new WindowHallCasino();
+    	
+    	/*
         Scanner sc = new Scanner(System.in);
 
         // inicializamos las variables básicas del juego
@@ -105,6 +111,8 @@ public class NewMain {
             }
 
         } while (opcion != 7);
+        
+        */
     }
 
     public static void opcionComprar() {
