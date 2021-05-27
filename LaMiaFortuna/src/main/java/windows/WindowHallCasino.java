@@ -1,18 +1,31 @@
 package windows;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.BorderLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
+import clases.CosaComprable;
+import clases.Jugador;
+import clases.Partida;
+
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 public class WindowHallCasino extends JFrame {
 	
 	public WindowHallCasino() {
 		setTitle("Bienvenido al Casino");
+		
+		// se crea un jugador:
+		// public Jugador(String nombre, double dinero, ArrayList<CosaComprable> cosasCompradas) {
+		ArrayList<CosaComprable> cosasCompradas = new ArrayList<CosaComprable>();
+		Partida.jugador1 = new Jugador("Jugador1", 150, cosasCompradas);
+		
 		setSize(800, 600);
 		
 		JButton btnNewButton = new JButton("Ir a Tienda del Casino");
@@ -25,6 +38,21 @@ public class WindowHallCasino extends JFrame {
 		});
 		
 		JButton btnNewButton_1 = new JButton("Jugar a Bingo");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if (Partida.jugador1.tieneAlgunCarton()) {
+				
+					WindowBingo windowBingo = new WindowBingo();
+					
+				} else {
+					
+					JOptionPane.showMessageDialog(null, "No puedes jugar si todavía no tienes ningún cartón", "Error", JOptionPane.ERROR_MESSAGE);
+					
+				}
+				
+			}
+		});
 		
 		JButton btnNewButton_2 = new JButton("Jugar a Ruleta");
 		

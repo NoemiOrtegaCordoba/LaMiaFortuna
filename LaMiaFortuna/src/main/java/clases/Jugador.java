@@ -15,6 +15,10 @@ public class Jugador {
 
     private String nombre;
     private double dinero;
+    // este es un uso del polimorfismo, de los dos pedidos:
+    // CosaComprable al ser clase padre, será usada
+    // para que en este ArrayList se puedan almacenar
+    // tanto Cartones, como Ficha, etc.
     private ArrayList<CosaComprable> cosasCompradas;
 
     public Jugador(String nombre, double dinero, ArrayList<CosaComprable> cosasCompradas) {
@@ -53,7 +57,7 @@ public class Jugador {
     }
 
     public void ganarDinero(int cantidad) {
-
+    	dinero = dinero + cantidad;
     }
 
     public void ganarPremio(int cantidad) {
@@ -61,7 +65,28 @@ public class Jugador {
     }
 
     public void comprarCosa(CosaComprable cosaComprable) {
-
+    	cosasCompradas.add(cosaComprable);
     }
+    
+    public boolean tieneAlgunCarton() {
+
+    	boolean tieneCarton = false;
+    	
+		for ( CosaComprable cosa : this.getCosasCompradas()) {
+			
+			// si una de las cosas es un carton
+			if (cosa instanceof Carton) {
+				
+				tieneCarton = true; 
+					
+			}
+			
+		}
+		
+		return tieneCarton;
+    	
+    }
+    
+    
 
 }

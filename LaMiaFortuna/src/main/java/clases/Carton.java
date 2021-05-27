@@ -35,13 +35,14 @@ public class Carton extends CosaComprable {
     }
 
     public void rellenarCasillasAlAzar() {
-        byte[][] casillas = new byte[3][9];
+        byte[][] casillas = new byte[3][5];
 
         Random r = new Random();
 
         for (int i = 0; i < casillas.length; i++) {
             for (int j = 0; j < casillas[i].length; j++) {
-                casillas[i][j] = (byte) r.nextInt(101);
+            	// se van a rellenar con números al azar del 1 al 95
+                casillas[i][j] = (byte) (r.nextInt(90) + 1);
             }
         }
         this.casillas = casillas;

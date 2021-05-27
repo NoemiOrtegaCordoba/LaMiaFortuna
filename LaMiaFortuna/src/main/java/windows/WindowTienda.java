@@ -8,7 +8,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import clases.Carton;
 import clases.Casino;
+import clases.Partida;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -30,7 +32,7 @@ public class WindowTienda extends JFrame {
 		JLabel lblNewLabel = new JLabel("Tu dinero");
 		
 		textFieldDineroJugador = new JTextField();
-		textFieldDineroJugador.setText("170");
+		textFieldDineroJugador.setText( String.valueOf(Partida.jugador1.getDinero()) );
 		textFieldDineroJugador.setColumns(10);
 		
 		textFieldCartonesJugador = new JTextField();
@@ -69,6 +71,9 @@ public class WindowTienda extends JFrame {
 					cartonesJugador++;
 					dineroJugador = dineroJugador - Casino.precioCarton;
 					dineroCasino = dineroCasino + Casino.precioCarton;
+
+					Partida.jugador1.setDinero(dineroJugador);
+					Partida.jugador1.comprarCosa( new Carton(Casino.precioCarton) );
 					
 					textFieldCartonesJugador.setText( String.valueOf(cartonesJugador) );
 					textFieldDineroJugador.setText( String.valueOf(dineroJugador) );				
@@ -91,6 +96,8 @@ public class WindowTienda extends JFrame {
 					cartonesJugador--;
 					dineroJugador = dineroJugador + Casino.precioCarton;
 					dineroCasino = dineroCasino - Casino.precioCarton;
+
+					Partida.jugador1.setDinero(dineroJugador);
 					
 					textFieldCartonesJugador.setText( String.valueOf(cartonesJugador) );
 					textFieldDineroJugador.setText( String.valueOf(dineroJugador) );				
@@ -115,6 +122,8 @@ public class WindowTienda extends JFrame {
 					dineroJugador = dineroJugador - Casino.precioFicha;
 					dineroCasino = dineroCasino + Casino.precioFicha;
 					
+					Partida.jugador1.setDinero(dineroJugador);
+					
 					textFieldFichasJugador.setText( String.valueOf(fichasJugador) );
 					textFieldDineroJugador.setText( String.valueOf(dineroJugador) );				
 					textFieldDineroCasino.setText( String.valueOf(dineroCasino) );				
@@ -137,6 +146,8 @@ public class WindowTienda extends JFrame {
 					fichasJugador--;
 					dineroJugador = dineroJugador + Casino.precioFicha;
 					dineroCasino = dineroCasino - Casino.precioFicha;
+					
+					Partida.jugador1.setDinero(dineroJugador);
 					
 					textFieldFichasJugador.setText( String.valueOf(fichasJugador) );
 					textFieldDineroJugador.setText( String.valueOf(dineroJugador) );				
@@ -161,6 +172,8 @@ public class WindowTienda extends JFrame {
 					dineroJugador = dineroJugador + Casino.precioTicket7;
 					dineroCasino = dineroCasino - Casino.precioTicket7;
 					
+					Partida.jugador1.setDinero(dineroJugador);
+					
 					textFieldFichasJugador.setText( String.valueOf(ticketsJugador) );
 					textFieldDineroJugador.setText( String.valueOf(dineroJugador) );				
 					textFieldDineroCasino.setText( String.valueOf(dineroCasino) );				
@@ -183,6 +196,8 @@ public class WindowTienda extends JFrame {
 					ticketsJugador++;
 					dineroJugador = dineroJugador - Casino.precioTicket7;
 					dineroCasino = dineroCasino + Casino.precioTicket7;
+					
+					Partida.jugador1.setDinero(dineroJugador);
 					
 					textFieldFichasJugador.setText( String.valueOf(ticketsJugador) );
 					textFieldDineroJugador.setText( String.valueOf(dineroJugador) );				
