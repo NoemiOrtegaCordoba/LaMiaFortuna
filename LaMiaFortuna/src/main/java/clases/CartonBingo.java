@@ -11,11 +11,11 @@ import java.util.Random;
  *
  * @author noemi
  */
-public class Carton extends CosaComprable {
+public class CartonBingo extends CosaComprable {
 
     private byte[][] casillas;
 
-    public Carton(double precio) {
+    public CartonBingo(double precio) {
         super(precio);
         //this.casillas = casillas;
         rellenarCasillasAlAzar();
@@ -31,7 +31,29 @@ public class Carton extends CosaComprable {
 
     @Override
     public String toString() {
-        return "Carton{" + "casillas=" + casillas + '}';
+    	
+    	String cadena = "";
+    	
+    	for (int i = 0; i < casillas.length; i++) {
+    		for (int j = 0; j < casillas[i].length; j++) {
+    			
+    			String representacionCasilla = "";
+    			
+    			if (casillas[i][j] == -1) {
+    				representacionCasilla = "X";
+    			} else {
+    				representacionCasilla = String.valueOf( casillas[i][j] );
+    			}
+    			
+    			cadena += representacionCasilla + " ";
+    			
+    		}
+    		
+    		cadena += "\n";
+    	}
+    	
+        return cadena;
+        
     }
 
     public void rellenarCasillasAlAzar() {

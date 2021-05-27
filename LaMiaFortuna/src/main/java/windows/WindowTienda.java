@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import clases.Carton;
+import clases.CartonBingo;
 import clases.Casino;
 import clases.Partida;
 
@@ -73,7 +73,7 @@ public class WindowTienda extends JFrame {
 					dineroCasino = dineroCasino + Casino.precioCarton;
 
 					Partida.jugador1.setDinero(dineroJugador);
-					Partida.jugador1.comprarCosa( new Carton(Casino.precioCarton) );
+					Partida.jugador1.comprarCosa( new CartonBingo(Casino.precioCarton) );
 					
 					textFieldCartonesJugador.setText( String.valueOf(cartonesJugador) );
 					textFieldDineroJugador.setText( String.valueOf(dineroJugador) );				

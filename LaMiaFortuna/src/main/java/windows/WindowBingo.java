@@ -157,12 +157,12 @@ public class WindowBingo extends JFrame {
 	}
 	
 	private void saleNuevaBola() {
-		// sacamos una bola nueva y la mostramos
+		// sacamos una bola nueva y la mostramos, además del contenido de los cartones jugados
 		bingo.sacarBola();
 		textFieldUltimoNumero.setText( String.valueOf(bingo.getUltimaBola()) );
 		
 		String textoPartida = bingo.tacharYComprobarSiLineaOBingo();
-		String texto = textoPartida + "\n";
+		String texto = bingo.mostrarCasillasCartones() + " " + textoPartida + "\n";
 		
 		textArea.setText( textArea.getText() + texto );
 		

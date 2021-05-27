@@ -7,7 +7,7 @@ public class Bingo extends Juego {
 	
 	private byte bolasSacadasHastaAhora;
 	private byte ultimaBola;
-	private ArrayList<Carton> cartonesJugadosAhora;
+	private ArrayList<CartonBingo> cartonesJugadosAhora;
 	private boolean bingoCantado;
 	private int lineasCantadas;
 	
@@ -19,10 +19,22 @@ public class Bingo extends Juego {
 		// -1 significa que todavía no se ha sacado ninguna bola
 		this.ultimaBola = -1;
 		
-		cartonesJugadosAhora = new ArrayList<Carton>();
+		cartonesJugadosAhora = new ArrayList<CartonBingo>();
 		
 		bingoCantado = false;
 		lineasCantadas = 0;
+	}
+	
+	public String mostrarCasillasCartones() {
+		String cartones = "";
+		
+		for (CartonBingo carton : cartonesJugadosAhora) {
+			
+			cartones += carton.toString() + "\n\n\n";
+			
+		}
+		
+		return cartones;
 	}
 	
 	// se van a jugar a con un cierto número de cartones
@@ -38,7 +50,7 @@ public class Bingo extends Juego {
 		for ( CosaComprable cosa : cosasJugador) {
 			
 			// si una de las cosas es un carton
-			if (cosa instanceof Carton) {
+			if (cosa instanceof CartonBingo) {
 				
 				if (conta < numeroCartones) {
 					conta++;
@@ -46,7 +58,7 @@ public class Bingo extends Juego {
 					// almacenamos el carton que vamos a usar
 					// (puede haber varios)
 					// (aquí también se está usando polimorfismo)
-					cartonesJugadosAhora.add( (Carton) cosa);
+					cartonesJugadosAhora.add( (CartonBingo) cosa);
 				}
 				
 			}
@@ -56,7 +68,7 @@ public class Bingo extends Juego {
 		// ahora borramos los cartones que hemos sacado
 		// de los objetos del jugador:
 		
-		for ( Carton uncarton : cartonesJugadosAhora) {
+		for ( CartonBingo uncarton : cartonesJugadosAhora) {
 			
 			// otro uso del polimorfimos, esta vez de una clase
 			// hijo a una clase padre, y para borrar de un 
@@ -76,11 +88,11 @@ public class Bingo extends Juego {
 		this.lineasCantadas = lineasCantadas;
 	}
 
-	public ArrayList<Carton> getCartonesJugadosAhora() {
+	public ArrayList<CartonBingo> getCartonesJugadosAhora() {
 		return cartonesJugadosAhora;
 	}
 	
-	public void setCartonesJugadosAhora(ArrayList<Carton> cartonesJugadosAhora) {
+	public void setCartonesJugadosAhora(ArrayList<CartonBingo> cartonesJugadosAhora) {
 		this.cartonesJugadosAhora = cartonesJugadosAhora;
 	}
 
@@ -106,7 +118,7 @@ public class Bingo extends Juego {
 		
 		// primero se tachan todos los cartones con el número de la última bola:
 
-		for (Carton uncarton : cartonesJugadosAhora) {
+		for (CartonBingo uncarton : cartonesJugadosAhora) {
 			
 			byte[][] numeros = uncarton.getCasillas();
 			
@@ -131,7 +143,7 @@ public class Bingo extends Juego {
 		int numeroBingos = 0;
 		int numeroLineas = 0;
 		
-		for (Carton uncarton : cartonesJugadosAhora) {
+		for (CartonBingo uncarton : cartonesJugadosAhora) {
 
 			int cuantosTachados = 0;
 			

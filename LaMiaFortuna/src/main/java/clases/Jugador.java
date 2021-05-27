@@ -75,7 +75,7 @@ public class Jugador {
 		for ( CosaComprable cosa : this.getCosasCompradas()) {
 			
 			// si una de las cosas es un carton
-			if (cosa instanceof Carton) {
+			if (cosa instanceof CartonBingo) {
 				
 				tieneCarton = true; 
 					

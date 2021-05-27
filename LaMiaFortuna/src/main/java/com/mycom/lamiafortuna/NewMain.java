@@ -5,7 +5,7 @@
  */
 package com.mycom.lamiafortuna;
 
-import clases.Carton;
+import clases.CartonBingo;
 import clases.Casino;
 import clases.CosaComprable;
 import clases.Ficha;
@@ -136,7 +136,7 @@ public class NewMain {
                     ArrayList<CosaComprable> stockCasino = Partida.casino.getCosasComprables();
                     int numeroCartones = 0;
                     for (int i = 0; i < stockCasino.size(); i++) {
-                        if (stockCasino.get(i) instanceof Carton) {
+                        if (stockCasino.get(i) instanceof CartonBingo) {
                             numeroCartones++;
                         }
                     }
@@ -147,10 +147,10 @@ public class NewMain {
                     }
 
                     // paso 2 - comprobamos si tiene suficiente dinero para comprar un cartón el jugador
-                    Carton uncarton = null;
+                    CartonBingo uncarton = null;
                     for (int i = 0; i < stockCasino.size(); i++) {
-                        if (stockCasino.get(i) instanceof Carton) {
-                            uncarton = (Carton) stockCasino.get(i);
+                        if (stockCasino.get(i) instanceof CartonBingo) {
+                            uncarton = (CartonBingo) stockCasino.get(i);
                             break;
                         }
                     }
