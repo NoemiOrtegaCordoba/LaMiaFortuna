@@ -13,7 +13,7 @@ public class Ficha extends CosaComprable {
 
     private String color;
 
-    public Ficha(String color, int precio) {
+    public Ficha(String color, double precio) {
         super(precio);
         this.color = color;
     }

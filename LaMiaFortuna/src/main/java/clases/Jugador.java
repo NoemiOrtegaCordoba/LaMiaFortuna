@@ -69,7 +69,7 @@ public class Jugador {
     }
     
     public boolean tieneAlgunCarton() {
-
+    	
     	boolean tieneCarton = false;
     	
 		for ( CosaComprable cosa : this.getCosasCompradas()) {
@@ -87,6 +87,47 @@ public class Jugador {
     	
     }
     
+    public boolean tieneAlgunCartonLoteria() {
+    	
+    	boolean tieneCartonDeLoteria = false;
+    	
+		for ( CosaComprable cosa : this.getCosasCompradas()) {
+			
+			// si una de las cosas es un carton de lotería
+			if (cosa instanceof CartonLoteria) {
+				
+				tieneCartonDeLoteria = true; 
+					
+			}
+			
+		}
+		
+		return tieneCartonDeLoteria;
+    	
+    }
     
 
+    public void usarCartonDeLoteria() {
+        
+    	CosaComprable eliminarEste = null;
+    	
+        for ( CosaComprable cosa : this.getCosasCompradas()) {
+
+        	// aquí se usa algo del polimorfimo:
+			if (cosa instanceof CartonLoteria) {
+				
+				eliminarEste = cosa; 
+					
+			}
+			
+		}
+        
+        if (eliminarEste != null) {
+        	
+        	this.getCosasCompradas().remove(eliminarEste);
+        	
+        }
+    	
+    }
+    
 }

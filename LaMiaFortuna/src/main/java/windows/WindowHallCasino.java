@@ -57,17 +57,36 @@ public class WindowHallCasino extends JFrame {
 		JButton btnNewButton_2 = new JButton("Jugar a Ruleta");
 		
 		JButton btnNewButton_3 = new JButton("Jugar a X");
+		
+		JButton btnNewButton_4 = new JButton("Jugar a Lotería");
+		btnNewButton_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if (Partida.jugador1.tieneAlgunCartonLoteria()) {
+					
+					WindowLoteria windowLoteria = new WindowLoteria();
+					
+				} else {
+					
+					JOptionPane.showMessageDialog(null, "No puedes jugar si todavía no tienes ningún cartón de Lotería, cómpralo antes", "Error", JOptionPane.ERROR_MESSAGE);
+					
+				}				
+				
+				
+			}
+		});
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(99)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnNewButton_3)
+						.addComponent(btnNewButton_4)
 						.addComponent(btnNewButton_2)
+						.addComponent(btnNewButton_3)
 						.addComponent(btnNewButton_1)
 						.addComponent(btnNewButton))
-					.addContainerGap(596, Short.MAX_VALUE))
+					.addContainerGap(548, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -77,14 +96,15 @@ public class WindowHallCasino extends JFrame {
 					.addGap(18)
 					.addComponent(btnNewButton_1)
 					.addGap(18)
+					.addComponent(btnNewButton_4)
+					.addGap(17)
 					.addComponent(btnNewButton_2)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(btnNewButton_3)
-					.addContainerGap(353, Short.MAX_VALUE))
+					.addContainerGap(313, Short.MAX_VALUE))
 		);
 		getContentPane().setLayout(groupLayout);
 		
 		setVisible(true);
 	}
-	
 }

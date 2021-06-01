@@ -1,11 +1,15 @@
 package clases;
 
-public class CartonLoteria {
+public class CartonLoteria extends CosaComprable {
 
     private byte[][] casillas;
 
-	public CartonLoteria(byte[][] casillas) {
-		super();
+    public CartonLoteria(double precio) {
+		super(precio);
+	}
+    
+	public CartonLoteria(double precio, byte[][] casillas) {
+		super(precio);
 		this.casillas = casillas;
 	}
 
