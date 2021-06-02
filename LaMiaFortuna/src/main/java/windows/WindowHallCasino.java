@@ -56,7 +56,14 @@ public class WindowHallCasino extends JFrame {
 		
 		JButton btnNewButton_2 = new JButton("Jugar a Ruleta");
 		
-		JButton btnNewButton_3 = new JButton("Jugar a X");
+		JButton btnNewButton_3 = new JButton("Jugar a 7 media");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				VentanaSieteYMedia ventanaSieteYMedia = new VentanaSieteYMedia();
+				
+			}
+		});
 		
 		JButton btnNewButton_4 = new JButton("Jugar a Lotería");
 		btnNewButton_4.addActionListener(new ActionListener() {

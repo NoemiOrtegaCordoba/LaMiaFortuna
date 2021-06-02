@@ -7,6 +7,8 @@ package clases;
 
 import java.util.ArrayList;
 
+import enumeradores.AccionCartas;
+
 /**
  *
  * @author noemi
@@ -19,12 +21,24 @@ public class Jugador {
     // CosaComprable al ser clase padre, será usada
     // para que en este ArrayList se puedan almacenar
     // tanto Cartones, como Ficha, etc.
+    
     private ArrayList<CosaComprable> cosasCompradas;
+    
+    // variables para las 7 y media:
+    private ArrayList<Carta> cartas7YMedia;
+    private double ultimaApuesta;
+    private AccionCartas accionCartas;
+    private double puntosMano;
 
     public Jugador(String nombre, double dinero, ArrayList<CosaComprable> cosasCompradas) {
         this.nombre = nombre;
         this.dinero = dinero;
         this.cosasCompradas = cosasCompradas;
+        
+        cartas7YMedia = new ArrayList<Carta>();
+        ultimaApuesta = 0;
+        accionCartas = AccionCartas.JUEGA;
+        puntosMano = 0;
     }
 
     public String getNombre() {
@@ -129,5 +143,54 @@ public class Jugador {
         }
     	
     }
-    
+
+	public ArrayList<Carta> getCartas7YMedia() {
+		return cartas7YMedia;
+	}
+
+	public void setCartas7YMedia(ArrayList<Carta> cartas7yMedia) {
+		cartas7YMedia = cartas7yMedia;
+	}
+
+	public double getUltimaApuesta() {
+		return ultimaApuesta;
+	}
+
+	public void setUltimaApuesta(double ultimaApuesta) {
+		this.ultimaApuesta = ultimaApuesta;
+	}
+
+	public AccionCartas getAccionCartas() {
+		return accionCartas;
+	}
+
+	public void setAccionCartas(AccionCartas accionCartas) {
+		this.accionCartas = accionCartas;
+	}
+	
+	public void calcularPuntosMano() {
+		
+		puntosMano = 0;
+		
+		// sota caballo y rey (8, 9 y 10) valen 0.5 puntos, el resto 1
+		for (Carta unaCarta : cartas7YMedia) {
+
+			if (unaCarta.getNumero() < 8) {
+				puntosMano += 1;
+			} else {
+				puntosMano += 0.5;
+			}
+			
+		}
+		
+	}
+
+	public double getPuntosMano() {
+		return puntosMano;
+	}
+
+	public void setPuntosMano(double puntosMano) {
+		this.puntosMano = puntosMano;
+	}
+	
 }
