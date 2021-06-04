@@ -12,10 +12,13 @@ package clases;
 public class Ficha extends CosaComprable {
 
     private String color;
+    private byte numeroDondeEsta; // esto va del 1 al 36 + 7 
+    							  // (los últimos 7 es votar por grupos de números)
 
-    public Ficha(String color, double precio) {
+    public Ficha(String color, double precio, byte numeroDondeEsta) {
         super(precio);
         this.color = color;
+        this.numeroDondeEsta = numeroDondeEsta;
     }
 
     public String getColor() {
@@ -31,4 +34,12 @@ public class Ficha extends CosaComprable {
         return "Ficha{" + "color=" + color + '}';
     }
 
+	public byte getNumeroDondeEsta() {
+		return numeroDondeEsta;
+	}
+
+	public void setNumeroDondeEsta(byte numeroDondeEsta) {
+		this.numeroDondeEsta = numeroDondeEsta;
+	}
+    
 }

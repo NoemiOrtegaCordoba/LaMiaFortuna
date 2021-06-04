@@ -31,6 +31,11 @@ public class Jugador {
     private boolean abandonaMano;
     private double puntosMano;
     private double dineroGanadoMano;
+    
+    // 	variables para la ruleta:
+    private ArrayList<Ficha> fichasRuleta;
+    private int fichasQueTienes;
+    private double dineroGanadoUltimoGiro;
 
     public Jugador(String nombre, double dinero, ArrayList<CosaComprable> cosasCompradas) {
         this.nombre = nombre;
@@ -42,6 +47,10 @@ public class Jugador {
         accionCartas = AccionCartas.JUEGA;
         puntosMano = 0;
         abandonaMano = false;
+
+        fichasRuleta = new ArrayList<Ficha>(); 
+        this.fichasQueTienes = 0;
+        this.dineroGanadoUltimoGiro = 0;
     }
 
     public String getNombre() {
@@ -132,7 +141,7 @@ public class Jugador {
 			// si una de las cosas es un carton de lotería
 			if (cosa instanceof CartonLoteria) {
 				
-				tieneCartonDeLoteria = true; 
+				tieneCartonDeLoteria = true;
 					
 			}
 			
@@ -152,7 +161,8 @@ public class Jugador {
         	// aquí se usa algo del polimorfimo:
 			if (cosa instanceof CartonLoteria) {
 				
-				eliminarEste = cosa; 
+				eliminarEste = cosa;
+				break;
 					
 			}
 			
@@ -176,6 +186,7 @@ public class Jugador {
 			if (cosa instanceof Ticket) {
 				
 				eliminarEste = cosa;
+				break;
 					
 			}
 			
@@ -188,6 +199,30 @@ public class Jugador {
         }
     	
     }
+    
+    public void usarFichaCasino() {
+        
+    	CosaComprable eliminarEste = null;
+    	
+        for (CosaComprable cosa : this.getCosasCompradas()) {
+
+        	// aquí se usa algo del polimorfimo:
+			if (cosa instanceof Ticket) {
+				
+				eliminarEste = cosa;
+				break;
+					
+			}
+			
+		}
+        
+        if (eliminarEste != null) {
+        	
+        	this.getCosasCompradas().remove(eliminarEste);
+        	
+        }
+    	
+    }    
     
 	public ArrayList<Carta> getCartas7YMedia() {
 		return cartas7YMedia;
@@ -280,5 +315,65 @@ public class Jugador {
 	public void setDineroGanadoMano(double dineroGanadoMano) {
 		this.dineroGanadoMano = dineroGanadoMano;
 	}
+
+	public ArrayList<Ficha> getFichasRuleta() {
+		return fichasRuleta;
+	}
+
+	public void setFichasRuleta(ArrayList<Ficha> fichasRuleta) {
+		this.fichasRuleta = fichasRuleta;
+	}
+
+	public double getDineroGanadoUltimoGiro() {
+		return dineroGanadoUltimoGiro;
+	}
+
+	public void setDineroGanadoUltimoGiro(double dineroGanadoUltimoGiro) {
+		this.dineroGanadoUltimoGiro = dineroGanadoUltimoGiro;
+	}
+
+	public int getFichasQueTienes() {
+		return fichasQueTienes;
+	}
+
+	public void setFichasQueTienes(int fichasQueTienes) {
+		this.fichasQueTienes = fichasQueTienes;
+	}
+	
+	public void calcularFichasQueTienes() {
+		
+		this.fichasQueTienes = 0;
+		
+		for (CosaComprable unaCosa : this.cosasCompradas) {
+
+			if (unaCosa instanceof  Ficha) {
+				this.fichasQueTienes++;	
+			}
+			
+		}
+		
+		
+	}
+
+	public boolean tieneAlgunaFicha() {
+
+		boolean tieneFicha = false;
+    	
+		for ( CosaComprable cosa : this.getCosasCompradas()) {
+			
+			// si una de las cosas es un carton
+			if (cosa instanceof Ficha) {
+				
+				tieneFicha = true; 
+					
+			}
+			
+		}
+		
+		return tieneFicha;		
+		
+	}
+
+	
 	
 }

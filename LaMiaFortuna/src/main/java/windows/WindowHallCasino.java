@@ -63,6 +63,23 @@ public class WindowHallCasino extends JFrame {
 		});
 		
 		JButton btnNewButton_2 = new JButton("Jugar a Ruleta");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				if (Partida.jugador1.tieneAlgunaFicha()) {
+					
+					VentanaRuleta ventanaRuleta = new VentanaRuleta();
+					
+				} else {
+					
+					JOptionPane.showMessageDialog(null, "No puedes jugar si todavía no tienes ninguna ficha", "Error", JOptionPane.ERROR_MESSAGE);
+					
+				}
+				
+			}
+		});
+		
+		
 		
 		JButton btnNewButton_3 = new JButton("Jugar a 7 media");
 		btnNewButton_3.addActionListener(new ActionListener() {

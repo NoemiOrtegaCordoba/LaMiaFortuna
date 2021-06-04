@@ -125,7 +125,7 @@ public class WindowTienda extends JFrame {
 					dineroCasino = dineroCasino + Casino.precioFicha;
 					
 					Partida.jugador1.setDinero(dineroJugador);
-					Partida.jugador1.comprarCosa( new Ficha("roja", Casino.precioFicha) );
+					Partida.jugador1.comprarCosa( new Ficha("roja", Casino.precioFicha, (byte) 0) );
 					
 					textFieldFichasJugador.setText( String.valueOf(fichasJugador) );
 					textFieldDineroJugador.setText( String.valueOf(dineroJugador) );				
