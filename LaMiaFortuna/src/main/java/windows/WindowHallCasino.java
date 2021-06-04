@@ -1,6 +1,7 @@
 package windows;
 
 import javax.swing.JFrame;
+import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.BorderLayout;
@@ -16,6 +17,7 @@ import clases.Partida;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+
 
 public class WindowHallCasino extends JFrame {
 	
@@ -34,7 +36,7 @@ public class WindowHallCasino extends JFrame {
 			Partida.casino = new Casino();
 		}
 		
-		setSize(390, 370);
+		setSize(450, 450);
 		
 		JButton btnNewButton = new JButton("Ir a Tienda del Casino");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -115,18 +117,59 @@ public class WindowHallCasino extends JFrame {
 				
 			}
 		});
+		
+		JButton btnNewButton_5 = new JButton("Grabar partida");
+		btnNewButton_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				 try
+				    {
+				      // create a mysql database connection
+				      String myDriver = "com.mysql.jdbc.Driver";
+				      String myUrl = "jdbc:mysql://localhost/lamiafortuna";
+				      Class.forName(myDriver);
+				      Connection conn = DriverManager.getConnection(myUrl, "root", "");
+				      
+				      Statement st = conn.createStatement();
+
+				      // note that i'm leaving "date_created" out of this insert statement
+				      st.executeUpdate("INSERT INTO `partida` (`id`, `jugador_nombre`, `jugador_dinero`, `dinero_casino`) VALUES (NULL, '" + Partida.jugador1.getNombre() + "', '" +  Partida.jugador1.getDinero() + "', '" + Partida.casino.getDinero() + "')");
+
+				      conn.close();
+				      
+				      JOptionPane.showMessageDialog(null, "Partida grabada con éxito en la BD", "Info", JOptionPane.PLAIN_MESSAGE);
+				    }
+				    catch (Exception error2)
+				    {
+				    	error2.printStackTrace();
+				    	JOptionPane.showMessageDialog(null, "Error al grabar la partida en la BD", "Error", JOptionPane.ERROR_MESSAGE);
+				    }
+				
+			}
+		});
+		
+		JButton btnNewButton_6 = new JButton("Borrar partida");
+		btnNewButton_6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				VentanaSeleccionarPartida windowSeleccionarPartida = new VentanaSeleccionarPartida(); 
+				
+			}
+		});
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(99)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(btnNewButton_6)
+						.addComponent(btnNewButton_5)
 						.addComponent(btnNewButton_4)
 						.addComponent(btnNewButton_2)
 						.addComponent(btnNewButton_3)
 						.addComponent(btnNewButton_1)
 						.addComponent(btnNewButton))
-					.addContainerGap(548, Short.MAX_VALUE))
+					.addContainerGap(138, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -141,7 +184,11 @@ public class WindowHallCasino extends JFrame {
 					.addComponent(btnNewButton_2)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(btnNewButton_3)
-					.addContainerGap(313, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(btnNewButton_5)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(btnNewButton_6)
+					.addContainerGap(15, Short.MAX_VALUE))
 		);
 		getContentPane().setLayout(groupLayout);
 		

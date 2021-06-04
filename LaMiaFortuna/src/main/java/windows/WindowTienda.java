@@ -267,7 +267,7 @@ public class WindowTienda extends JFrame {
 		JLabel lblNewLabel_5 = new JLabel("Dinero casino");
 		
 		textFieldDineroCasino = new JTextField();
-		textFieldDineroCasino.setText("10000");
+		textFieldDineroCasino.setText( String.valueOf(Partida.casino.getDinero() ) );
 		textFieldDineroCasino.setColumns(10);
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(

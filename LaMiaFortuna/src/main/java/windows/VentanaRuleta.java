@@ -88,23 +88,7 @@ public class VentanaRuleta extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				// el jugador usuario juega con estas fichas del combobox:
-			    int count = comboBoxNumerosApostados.getItemCount();
-	            for (int i = 0; i < count; i++) {
-	                    int numero = Integer.parseInt( comboBoxNumerosApostados.getItemAt(i).toString() );
-	                    
-	                    // public Ficha(String color, double precio, byte numeroDondeEsta) {
-	                    Ficha ficha = new Ficha("roja", Casino.precioFicha, (byte) numero);
-	                    Partida.jugador1.getFichasRuleta().add(ficha);
-	                    
-	            }				
-
-				ruleta.apuestanLosJugadores();
-				ruleta.darVueltasARuleta();
-				String texto = ruleta.cobranLosJugadoresOCasino();
-				
-				jTextArea.setText( "Ha salido el numero " + ruleta.getUltimoNumero() + "\n \n");
-				jTextArea.setText( jTextArea.getText() + texto );
+				ruedaRuleta();
 				
 			}
 		});
@@ -177,4 +161,27 @@ public class VentanaRuleta extends JFrame {
 		
 		setVisible(true);
 	}
+	
+	public void ruedaRuleta() {
+		// el jugador usuario juega con estas fichas del combobox:
+	    int count = comboBoxNumerosApostados.getItemCount();
+        for (int i = 0; i < count; i++) {
+            int numero = Integer.parseInt( comboBoxNumerosApostados.getItemAt(i).toString() );
+            
+            // public Ficha(String color, double precio, byte numeroDondeEsta) {
+            Ficha ficha = new Ficha("roja", Casino.precioFicha, (byte) numero);
+            Partida.jugador1.getFichasRuleta().add(ficha);
+        }				
+
+		ruleta.apuestanLosJugadores();
+		ruleta.darVueltasARuleta();
+		String texto = ruleta.cobranLosJugadoresOCasino();
+		
+		jTextArea.setText( "Ha salido el numero " + ruleta.getUltimoNumero() + "\n \n");
+		jTextArea.setText( jTextArea.getText() + texto );
+
+		JOptionPane.showMessageDialog(null, "Ha terminado la partida", "", JOptionPane.PLAIN_MESSAGE);
+		this.dispose();		
+	}
+	
 }
