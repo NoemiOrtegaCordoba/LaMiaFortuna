@@ -14,6 +14,12 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import clases.Carta;
 import clases.Partida;
 import clases.SieteYMedia;
+import enumeradores.AccionCartas;
+
+import javax.swing.JScrollBar;
+import javax.swing.JTextPane;
+import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
 
 public class VentanaSieteYMedia extends JFrame {
 	
@@ -34,13 +40,21 @@ public class VentanaSieteYMedia extends JFrame {
 	private JTextField carta14;
 
 	private SieteYMedia juegoCartas;
+	private int cartasSacadas;
+	private JScrollPane scrollPane;
+
+	private JTextArea jTextArea;
 	
 	public VentanaSieteYMedia() {
 		setTitle("Sala de las Siete y Media");
-		setSize(800, 600);
+		setSize(950, 610);
 	
+		Partida.jugador1.usarTicketDe7YMedia();
+		JOptionPane.showMessageDialog(null, "Ya ha comenzado una partida, y has usado tu ticket hasta que inicies otra partida cerrando la ventana", "", JOptionPane.PLAIN_MESSAGE);
+		
 		// creamos el objeto de las siete y media para que pueda jugarse
 		juegoCartas = new SieteYMedia();
+		juegoCartas.rellenarJugadores(Partida.jugador1);
 		
 		JButton btnNewButton = new JButton("Jugar Mano");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -48,8 +62,12 @@ public class VentanaSieteYMedia extends JFrame {
 				
 				// jugar una mano, lo que implica que se haya escrito algo en apuesta de esta mano -se reseteara en cada mano-
 				byte textFieldApuestaEstaManoByte = Byte.valueOf( textFieldApuestaEstaMano.getText() );
-				
-				if (textFieldApuestaEstaManoByte == 0) {
+			
+				if (cartasSacadas == 0) {
+					
+					JOptionPane.showMessageDialog(null, "Debes jugar al menos con una carta!!! Pide una al menos", "Info", JOptionPane.ERROR_MESSAGE);
+					
+				} else if (textFieldApuestaEstaManoByte == 0) {
 					
 					JOptionPane.showMessageDialog(null, "No se puede quedar la apuesta a 0", "Info", JOptionPane.ERROR_MESSAGE);
 					
@@ -66,6 +84,13 @@ public class VentanaSieteYMedia extends JFrame {
 						Partida.jugador1.setUltimaApuesta(apuestaUsuario);
 						
 						// y aquí se echa a jugar a los otros jugadores y se decide cuánto gana cada uno y qué ocurre
+						String descripcion = juegoCartas.jugarManoTodosJugadoresActivos();
+
+						// informamos de qué ha ocurrido
+						jTextArea.setText( jTextArea.getText() + descripcion );
+				
+						// desaparecen las cartas del jugador: ya las ha jugado
+						reiniciarCartasJugador();
 						
 					} catch (NumberFormatException error2) {
 						//error2.printStackTrace();
@@ -108,6 +133,7 @@ public class VentanaSieteYMedia extends JFrame {
 		carta4.setColumns(10);
 		
 		carta5 = new JTextField();
+		carta5.setEditable(false);
 		carta5.setText("0");
 		carta5.setColumns(10);
 		
@@ -171,69 +197,71 @@ public class VentanaSieteYMedia extends JFrame {
 			}
 		});
 		
-		JButton btnNewButton_2 = new JButton("Abandonar");
+		JLabel lblNewLabel_2 = new JLabel("Qué ocurre:");
+		
+		jTextArea = new JTextArea();
+		jTextArea.setLineWrap(true);
+		jTextArea.setText("");
+		jTextArea.setWrapStyleWord(true);
+		
+		scrollPane = new JScrollPane(jTextArea);
+				
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGap(25)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(200)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(btnNewButton)
-									.addGap(32)
-									.addComponent(btnNewButton_1)
-									.addGap(18)
-									.addComponent(btnNewButton_2))
-								.addComponent(lblNewLabel)
-								.addComponent(textFieldApuestaEstaMano, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(btnNewButton)
+							.addGap(32)
+							.addComponent(btnNewButton_1))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(25)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(carta1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(carta2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(carta3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(carta4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(carta5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(carta6, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(carta7, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addComponent(lblNewLabel_1)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(carta8, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(carta9, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(carta10, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(carta11, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(carta12, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(carta13, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(carta14, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))))
-					.addContainerGap(105, Short.MAX_VALUE))
+							.addComponent(carta1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(carta2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(carta3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(carta4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(carta5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(carta6, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(carta7, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblNewLabel_1)
+						.addComponent(lblNewLabel_2)
+						.addComponent(textFieldApuestaEstaMano, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNewLabel)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(carta8, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(carta9, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(carta10, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(carta11, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(carta12, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(carta13, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(carta14, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(scrollPane))
+					.addContainerGap(255, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(59)
+					.addGap(52)
 					.addComponent(lblNewLabel)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGap(18)
 					.addComponent(textFieldApuestaEstaMano, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnNewButton)
-						.addComponent(btnNewButton_1)
-						.addComponent(btnNewButton_2))
+						.addComponent(btnNewButton_1))
 					.addGap(64)
 					.addComponent(lblNewLabel_1)
 					.addGap(28)
@@ -254,7 +282,11 @@ public class VentanaSieteYMedia extends JFrame {
 						.addComponent(carta12, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(carta13, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(carta14, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(264, Short.MAX_VALUE))
+					.addGap(25)
+					.addComponent(lblNewLabel_2)
+					.addGap(18)
+					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 192, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(25, Short.MAX_VALUE))
 		);
 		getContentPane().setLayout(groupLayout);		
 		
@@ -297,9 +329,42 @@ public class VentanaSieteYMedia extends JFrame {
 			JOptionPane.showMessageDialog(null, "No se pueden pedir más cartas, porque la suma necesariamente de 14 cartas en una baraja española da más de 7 y medio, y por lo tanto ya has perdido", "Info", JOptionPane.INFORMATION_MESSAGE);			
 		}
 		
-		// y ahora ponemos el texto en el próximo hueco libre
-		String textoCarta = carta.toString();
-		hueco.setText(textoCarta);
+		if (hueco != null) {
+			cartasSacadas++;
+			
+			// y ahora ponemos el texto en el próximo hueco libre
+			String textoCarta = carta.toString();
+			hueco.setText(textoCarta);	
+		}
+		
+	}
+	
+	private void reiniciarCartasJugador() {
+
+		carta1.setText("0");
+		carta2.setText("0");
+		carta3.setText("0");
+		
+		carta4.setText("0");
+		carta5.setText("0");
+		carta6.setText("0");
+		
+		carta7.setText("0");
+		carta8.setText("0");
+		carta9.setText("0");
+		
+		carta10.setText("0");
+		carta11.setText("0");
+		carta12.setText("0");
+		
+		carta13.setText("0");
+		carta14.setText("0");
+
+		cartasSacadas = 0;
+
+		// vaciamos las cartas que tenga el jugador
+		Partida.jugador1.getCartas7YMedia().clear();
+		
 	}
 	
 }

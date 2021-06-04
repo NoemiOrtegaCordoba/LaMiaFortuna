@@ -20,6 +20,11 @@ public class Casino {
     public static final double precioFicha = 0.50; // en euros
     public static final double precioTicket7 = 0.50; // en euros
     public static final double precioCartonLoteria = 0.75; // en euros
+
+    public Casino() {
+        this.dinero = 10000;
+        this.stock = new ArrayList<CosaComprable>();
+    }    
     
     public Casino(double dinero, ArrayList<CosaComprable> cosasComprables) {
         this.dinero = dinero;

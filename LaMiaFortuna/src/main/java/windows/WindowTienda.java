@@ -25,12 +25,11 @@ public class WindowTienda extends JFrame {
 	private JTextField textFieldFichasJugador;
 	private JTextField textFieldTickets7Jugador;
 	private JTextField textFieldCartonesLoteria;
-	private JTextField textField;
 	private JTextField textFieldDineroCasino;
 
 	public WindowTienda() {
 		setTitle("Tienda del Casino");
-		setSize(800, 600);
+		setSize(840, 340);
 		
 		JLabel lblNewLabel = new JLabel("Tu dinero");
 		
@@ -178,7 +177,7 @@ public class WindowTienda extends JFrame {
 					
 					Partida.jugador1.setDinero(dineroJugador);
 					
-					textFieldFichasJugador.setText( String.valueOf(ticketsJugador) );
+					textFieldTickets7Jugador.setText( String.valueOf(ticketsJugador) );
 					textFieldDineroJugador.setText( String.valueOf(dineroJugador) );				
 					textFieldDineroCasino.setText( String.valueOf(dineroCasino) );				
 				} else {
@@ -192,23 +191,23 @@ public class WindowTienda extends JFrame {
 		btnNewButton_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				int cartonesJugador = Integer.valueOf( textFieldCartonesLoteria.getText() );
+				int ticketsJugador = Integer.valueOf( textFieldTickets7Jugador.getText() );
 				double dineroJugador = Double.valueOf( textFieldDineroJugador.getText() );
 				double dineroCasino = Double.valueOf( textFieldDineroCasino.getText() );
 				
-				if (dineroJugador >= Casino.precioCartonLoteria) {
-					cartonesJugador++;
-					dineroJugador = dineroJugador - Casino.precioCarton;
-					dineroCasino = dineroCasino + Casino.precioCarton;
+				if (dineroJugador >= Casino.precioTicket7) {
+					ticketsJugador++;
+					dineroJugador = dineroJugador - Casino.precioTicket7;
+					dineroCasino = dineroCasino + Casino.precioTicket7;
 
 					Partida.jugador1.setDinero(dineroJugador);
 					Partida.jugador1.comprarCosa( new Ticket(Casino.precioTicket7) );
 					
-					textFieldCartonesJugador.setText( String.valueOf(cartonesJugador) );
+					textFieldTickets7Jugador.setText( String.valueOf(ticketsJugador) );
 					textFieldDineroJugador.setText( String.valueOf(dineroJugador) );				
 					textFieldDineroCasino.setText( String.valueOf(dineroCasino) );
 				} else {
-					JOptionPane.showMessageDialog(null, "No tienes suficiente dinero para comprar un cartón", "Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "No tienes suficiente dinero para comprar un ticket para las 7 y 30", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}
@@ -265,9 +264,6 @@ public class WindowTienda extends JFrame {
 			}
 		});
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		
 		JLabel lblNewLabel_5 = new JLabel("Dinero casino");
 		
 		textFieldDineroCasino = new JTextField();
@@ -317,10 +313,7 @@ public class WindowTienda extends JFrame {
 										.addComponent(textFieldCartonesLoteria, Alignment.TRAILING, 0, 0, Short.MAX_VALUE)
 										.addComponent(btnNewButton_7, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 										.addComponent(btnNewButton_6, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(textFieldDineroCasino, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+						.addComponent(textFieldDineroCasino, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(186))
 		);
 		groupLayout.setVerticalGroup(
@@ -333,7 +326,6 @@ public class WindowTienda extends JFrame {
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(textFieldDineroJugador, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(textFieldDineroCasino, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(34)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)

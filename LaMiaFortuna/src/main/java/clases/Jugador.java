@@ -28,7 +28,9 @@ public class Jugador {
     private ArrayList<Carta> cartas7YMedia;
     private double ultimaApuesta;
     private AccionCartas accionCartas;
+    private boolean abandonaMano;
     private double puntosMano;
+    private double dineroGanadoMano;
 
     public Jugador(String nombre, double dinero, ArrayList<CosaComprable> cosasCompradas) {
         this.nombre = nombre;
@@ -39,6 +41,7 @@ public class Jugador {
         ultimaApuesta = 0;
         accionCartas = AccionCartas.JUEGA;
         puntosMano = 0;
+        abandonaMano = false;
     }
 
     public String getNombre() {
@@ -100,6 +103,25 @@ public class Jugador {
 		return tieneCarton;
     	
     }
+
+    public boolean tieneAlgunTicket() {
+    	
+    	boolean tieneTicket = false;
+    	
+		for ( CosaComprable cosa : this.getCosasCompradas()) {
+			
+			// si una de las cosas es un carton
+			if (cosa instanceof Ticket) {
+				
+				tieneTicket = true; 
+					
+			}
+			
+		}
+		
+		return tieneTicket;
+    	
+    }
     
     public boolean tieneAlgunCartonLoteria() {
     	
@@ -144,6 +166,29 @@ public class Jugador {
     	
     }
 
+    public void usarTicketDe7YMedia() {
+        
+    	CosaComprable eliminarEste = null;
+    	
+        for (CosaComprable cosa : this.getCosasCompradas()) {
+
+        	// aquí se usa algo del polimorfimo:
+			if (cosa instanceof Ticket) {
+				
+				eliminarEste = cosa;
+					
+			}
+			
+		}
+        
+        if (eliminarEste != null) {
+        	
+        	this.getCosasCompradas().remove(eliminarEste);
+        	
+        }
+    	
+    }
+    
 	public ArrayList<Carta> getCartas7YMedia() {
 		return cartas7YMedia;
 	}
@@ -191,6 +236,49 @@ public class Jugador {
 
 	public void setPuntosMano(double puntosMano) {
 		this.puntosMano = puntosMano;
+	}
+
+	public boolean isAbandonaMano() {
+		return abandonaMano;
+	}
+
+	public void setAbandonaMano(boolean abandonaMano) {
+		this.abandonaMano = abandonaMano;
+	}
+
+	public void calcularPuntos7YMedia() {
+		
+		this.puntosMano = 0;
+		
+		//ArrayList<Carta> cartas7YMedia;
+		for ( Carta carta : this.getCartas7YMedia()) {
+			
+			double puntos = 0;
+			
+			// si no es sota, caballo o rey vale 1 punto
+			if (carta.getNumero() >= 1 && carta.getNumero() <= 7) {
+				
+				puntos = 1;
+				
+				// si es sota, caballo o rey vale 0.5 puntos
+			} else {
+				
+				puntos = 0.5;
+				
+			}
+			
+			this.puntosMano += puntos;
+			
+		}		
+		
+	}
+
+	public double getDineroGanadoMano() {
+		return dineroGanadoMano;
+	}
+
+	public void setDineroGanadoMano(double dineroGanadoMano) {
+		this.dineroGanadoMano = dineroGanadoMano;
 	}
 	
 }

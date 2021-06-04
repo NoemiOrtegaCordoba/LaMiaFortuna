@@ -11,6 +11,6 @@ package clases;
  */
 public class Partida {
 
-    public static Jugador jugador1;
-    public static Casino casino;
+    public static Jugador jugador1 = null;
+    public static Casino casino = null;
 }

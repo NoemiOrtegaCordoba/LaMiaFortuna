@@ -8,6 +8,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import clases.Casino;
 import clases.CosaComprable;
 import clases.Jugador;
 import clases.Partida;
@@ -24,9 +25,16 @@ public class WindowHallCasino extends JFrame {
 		// se crea un jugador:
 		// public Jugador(String nombre, double dinero, ArrayList<CosaComprable> cosasCompradas) {
 		ArrayList<CosaComprable> cosasCompradas = new ArrayList<CosaComprable>();
-		Partida.jugador1 = new Jugador("Jugador1", 150, cosasCompradas);
 		
-		setSize(800, 600);
+		if (Partida.jugador1 == null) {
+			Partida.jugador1 = new Jugador("Jugador Usuario", 150, cosasCompradas);
+		}
+		
+		if (Partida.casino == null) {
+			Partida.casino = new Casino();
+		}
+		
+		setSize(390, 370);
 		
 		JButton btnNewButton = new JButton("Ir a Tienda del Casino");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -59,8 +67,16 @@ public class WindowHallCasino extends JFrame {
 		JButton btnNewButton_3 = new JButton("Jugar a 7 media");
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				VentanaSieteYMedia ventanaSieteYMedia = new VentanaSieteYMedia();
+
+				if (Partida.jugador1.tieneAlgunTicket()) {
+					
+					VentanaSieteYMedia ventanaSieteYMedia = new VentanaSieteYMedia();
+					
+				} else {
+					
+					JOptionPane.showMessageDialog(null, "No puedes jugar si todavía no tienes ningún ticket para jugar a las Siete y Media", "Error", JOptionPane.ERROR_MESSAGE);
+					
+				}
 				
 			}
 		});
